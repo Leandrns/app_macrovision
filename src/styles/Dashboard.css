@@ -1,0 +1,66 @@
+.dashboard-main {
+  padding: 2rem 3rem;
+  width: 100%;
+}
+
+.dashboard-main h1 {
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  margin-bottom: 2rem;
+}
+
+.dashboard-cards {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.card-action {
+  background-color: var(--color-white);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card-action:hover {
+  transform: translateY(-5px);
+}
+
+.card-action i {
+  font-size: 2rem;
+  color: var(--color-primary);
+}
+
+.recent-analyses {
+  background-color: var(--color-white);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.recent-analyses h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.recent-analyses table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.recent-analyses th, .recent-analyses td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-light-gray);
+}
+
+.recent-analyses thead {
+  background-color: var(--color-background);
+}

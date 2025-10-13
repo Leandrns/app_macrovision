@@ -1,0 +1,132 @@
+.new-analysis-main {
+    padding: 2rem 3rem;
+    width: 100%;
+    overflow-y: auto; /* Para garantir que o formulário role se for muito grande */
+}
+
+.form-section {
+    margin-bottom: 2rem;
+}
+
+.form-section h3 {
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+}
+
+.form-row {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.form-group.half-width {
+    flex-basis: 50%;
+}
+.form-group.full-width {
+    flex-basis: 100%;
+}
+
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input, 
+.form-group select,
+.form-group textarea {
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--color-light-gray);
+    border-radius: 8px;
+    background-color: var(--color-white);
+    font-size: 1rem;
+    font-family: var(--font-primary);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.image-analysis-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.image-placeholder {
+    width: 200px;
+    height: 150px;
+    background-color: var(--color-light-gray);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-placeholder img {
+    /* Estilos para a imagem quando for adicionada */
+}
+
+.camera-connect {
+    flex: 1;
+}
+
+.camera-status {
+    color: green;
+    font-size: 0.9rem;
+}
+
+.camera-status i {
+    margin-right: 0.5rem;
+}
+
+.voice-command {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    color: var(--color-dark-gray);
+}
+
+.dimensions-group {
+    display: flex;
+    flex-direction: column;
+}
+.dimensions-inputs {
+    display: flex;
+    gap: 1rem;
+}
+
+.dimensions-inputs input {
+    width: 120px;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.action-buttons button {
+    border: none;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-dimensional {
+    background-color: var(--color-light-blue);
+    color: var(--color-white);
+}
+
+.btn-submit {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
