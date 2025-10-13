@@ -1,5 +1,6 @@
 .user-login-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -37,9 +38,8 @@
     margin-right: 0.5rem;
 }
 
-.user-login-box .login-logo {
-  width: 60px;
-  height: 60px;
+.login-logo {
+  width: 540px;
 }
 
 .user-login-box .login-brand-name {
