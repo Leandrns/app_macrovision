@@ -1,0 +1,12 @@
+.app-layout {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.main-content {
+    width: 80%;
+    height: 100vh;
+    overflow-y: auto;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/Sidebar.css';
 
-function Sidebar({ activeScreen }) {
+function Sidebar({ activeScreen, navigateTo }) {
   return (
     <nav className="sidebar">
       <div className="sidebar-header">
@@ -9,13 +9,13 @@ function Sidebar({ activeScreen }) {
         <span>MACRO VISION</span>
       </div>
       <ul className="sidebar-menu">
-        <li className={activeScreen === 'dashboard' ? 'active' : ''}>
+        <li className={activeScreen === 'dashboard' ? 'active' : ''} onClick={() => navigateTo('dashboard')}>
           <a href="#"><i className="fa-solid fa-chart-pie"></i> Dashboard</a>
         </li>
-        <li className={activeScreen === 'new-analysis' ? 'active' : ''}>
+        <li className={activeScreen === 'new-analysis' ? 'active' : ''} onClick={() => navigateTo('new-analysis')}>
           <a href="#"><i className="fa-solid fa-microscope"></i> Nova Análise</a>
         </li>
-        <li className={activeScreen === 'reports' ? 'active' : ''}>
+        <li className={activeScreen === 'reports' ? 'active' : ''} onClick={() => navigateTo('reports')}>
           <a href="#"><i className="fa-solid fa-file-lines"></i> Relatórios</a>
         </li>
       </ul>

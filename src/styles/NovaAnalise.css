@@ -1,7 +1,6 @@
 .new-analysis-main {
     padding: 2rem 3rem;
     width: 100%;
-    overflow-y: auto; /* Para garantir que o formulário role se for muito grande */
 }
 
 .form-section {
@@ -102,7 +101,7 @@
 }
 
 .dimensions-inputs input {
-    width: 120px;
+    max-width: 120px;
 }
 
 .action-buttons {

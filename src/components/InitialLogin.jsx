@@ -1,14 +1,14 @@
 import React from 'react';
 import '../styles/InitialLogin.css';
 
-function InitialLogin() {
+function InitialLogin({ onSelectUser }) {
   return (
     <div className="login-container">
       <div className="login-box">
         <img src="" alt="Macrovision Logo" className="login-logo" />
         <span className="login-brand-name">MACRO VISION</span>
         <div className="login-buttons">
-          <button className="login-btn">
+          <button className="login-btn" onClick={onSelectUser}>
             <i className="fa-solid fa-user"></i>
             <span>Usuário</span>
           </button>
