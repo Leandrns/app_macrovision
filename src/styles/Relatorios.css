@@ -1,0 +1,181 @@
+/* --- Global Styles & Variables (mesmos de antes) --- */
+:root {
+  --background-light: #F4F7FC;
+  --card-background: #FFFFFF;
+  --text-dark: #3D405B;
+  --text-light: #8D99AE;
+  --border-color: #E0E0E0;
+  --primary-blue: #4A90E2;
+  --shadow: 0px 4px 15px rgba(0, 0, 0, 0.06);
+  --border-radius: 8px;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-light);
+  color: var(--text-dark);
+}
+
+.reports-main {
+  padding: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* --- Filtros (mesmo de antes) --- */
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* 1rem */
+  margin-bottom: 32px; /* 2rem */
+}
+
+.filters span {
+  font-weight: 500;
+  color: #333;
+}
+
+.filters select {
+  padding: 8px 16px; /* 0.5rem 1rem */
+  border-radius: 8px;
+  border: 1px solid var(--color-light-gray);
+  background-color: var(--color-white);
+  font-size: 14px;
+}
+
+/* --- Estilos da Tabela --- */
+.report-table-container {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden; /* Importante para o border-radius funcionar */
+}
+
+.report-table-container {
+  background-color: var(--color-white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden; /* Garante que o conteúdo respeite o border-radius */
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.report-table th,
+.report-table td {
+  padding: 24px 32px; /* 1.5rem 2rem */
+  text-align: left;
+  vertical-align: middle;
+}
+
+.report-table th {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8D99AE;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--color-light-gray);
+}
+
+.report-item-row {
+  border-bottom: 1px solid var(--color-light-gray);
+}
+
+/* Remove a borda da última linha de dados */
+.report-table tbody tr.report-item-row:last-of-type {
+  border-bottom: none;
+}
+
+.report-table td {
+  font-weight: 500;
+}
+
+
+.report-item-row {
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s ease;
+}
+
+.report-item-row:hover {
+    background-color: #f5f5f5;
+}
+
+/* Remove a borda da última linha */
+.report-table tbody tr:last-child {
+  border-bottom: none;
+}
+.report-item-row:last-child {
+  border-bottom: none;
+}
+
+
+/* --- Colunas e Ações --- */
+.col-data { width: 15%; }
+.col-paciente { width: 30%; }
+.col-analise { width: 30%; }
+.col-acoes { width: 25%; text-align: center; }
+
+.report-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 24px; /* 1.5rem */
+}
+
+.report-actions i {
+  font-size: 19px; /* 1.2rem */
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.report-actions i:hover {
+  transform: scale(1.1);
+}
+
+.action-icon, .edit-btn {
+  /* Estilos de ícones e botão permanecem os mesmos */
+}
+.action-icon {
+  font-size: 18px; color: var(--text-light); cursor: pointer; transition: color 0.2s ease;
+}
+.action-icon:hover { color: var(--primary-blue); }
+.edit-btn {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 24px; /* 0.5rem 1.5rem */
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.edit-btn:hover {
+  background-color: #3a7ac8;
+}
+/* --- Linha de Detalhes Expandida --- */
+.details-row td {
+  padding: 0;
+}
+
+.report-details {
+  background-color: #F8F9FA; /* Cor de fundo sutil para destaque */
+  padding: 24px 32px; /* 1.5rem 2rem */
+}
+
+.report-details strong {
+    display: block;
+}
+
+.report-details p {
+  margin-top: 8px; /* 0.5rem */
+  line-height: 1.6;
+  color: #555;
+}
