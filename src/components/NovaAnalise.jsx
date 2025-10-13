@@ -1,28 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/NovaAnalise.css';
 
 function NovaAnalise() {
+  const [doctorName, setDoctorName] = useState('');
+  const [crm, setCrm] = useState('');
+  const [patientName, setPatientName] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [analysisDate, setAnalysisDate] = useState('');
+  const [analysisTime, setAnalysisTime] = useState('');
+
+  const handleCrmChange = (e) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, 7);
+    setCrm(value);
+  };
+
+  const handleCpfChange = (e) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, 11);
+    setCpf(value);
+  };
+
+  const handleSubmit = () => {
+    const now = new Date();
+    setAnalysisTime(now.toLocaleTimeString());
+    // Aqui você pode adicionar lógica para enviar a análise, como uma chamada para uma API
+  };
+
   return (
     <main className="new-analysis-main">
       <div className="form-section">
         <div className="form-row">
             <div className="form-group half-width">
                 <label htmlFor="doctor-name">Nome do médico*</label>
-                <input type="text" id="doctor-name" />
+                <input type="text" id="doctor-name" value={doctorName} onChange={(e) => setDoctorName(e.target.value)} />
             </div>
             <div className="form-group half-width">
                 <label htmlFor="doctor-crm">CRM*</label>
-                <input type="text" id="doctor-crm" placeholder="123456" />
+                <input type="text" id="doctor-crm" value={crm} onChange={handleCrmChange} placeholder="1234567" />
             </div>
         </div>
         <div className="form-row">
             <div className="form-group half-width">
                 <label htmlFor="patient-name">Nome do paciente*</label>
-                <input type="text" id="patient-name" />
+                <input type="text" id="patient-name" value={patientName} onChange={(e) => setPatientName(e.target.value)} />
             </div>
             <div className="form-group half-width">
                 <label htmlFor="patient-cpf">CPF*</label>
-                <input type="text" id="patient-cpf" placeholder="12345678910" />
+                <input type="text" id="patient-cpf" value={cpf} onChange={handleCpfChange} placeholder="12345678901" />
             </div>
         </div>
       </div>
@@ -32,11 +55,11 @@ function NovaAnalise() {
         <div className="form-row">
             <div className="form-group">
                 <label htmlFor="analysis-date">Data da análise</label>
-                <input type="text" id="analysis-date" defaultValue="09/06/2025" />
+                <input type="date" id="analysis-date" value={analysisDate} onChange={(e) => setAnalysisDate(e.target.value)} />
             </div>
             <div className="form-group">
                 <label htmlFor="analysis-time">Hora da análise</label>
-                <input type="text" id="analysis-time" defaultValue="12:36" />
+                <input type="text" id="analysis-time" value={analysisTime} readOnly />
             </div>
             <div className="form-group">
                 <label htmlFor="analyzed-part">Peça analisada*</label>
@@ -94,7 +117,7 @@ function NovaAnalise() {
       
       <div className="action-buttons">
         <button className="btn-dimensional">Fazer análise dimensional</button>
-        <button className="btn-submit">Enviar análise</button>
+        <button className="btn-submit" onClick={handleSubmit}>Enviar análise</button>
       </div>
 
     </main>

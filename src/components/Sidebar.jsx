@@ -1,3 +1,4 @@
+
 import React from 'react';
 import '../styles/Sidebar.css';
 
@@ -19,8 +20,8 @@ function Sidebar({ activeScreen, navigateTo }) {
           <a href="#"><i className="fa-solid fa-file-lines"></i> Relatórios</a>
         </li>
       </ul>
-      <div className="sidebar-footer">
-        <a href="#"><i className="fa-solid fa-circle-user"></i> Usuário</a>
+      <div className="sidebar-footer" onClick={() => navigateTo('UserLogin')}>
+        <a href='#'> <i className="fa-solid fa-circle-user" ></i> Usuário</a>
       </div>
     </nav>
   );
