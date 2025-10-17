@@ -8,6 +8,7 @@ function Relatorios() {
 
       <div className="filters">
         <span>Filtrar por:</span><br></br>
+        <div className="spacer">
         <select>
           <option>Data</option>
         </select>
@@ -17,6 +18,7 @@ function Relatorios() {
         <select>
           <option>Tipo de Análise</option>
         </select>
+        </div>
       </div>
 
       <div className="report-table-container">
@@ -30,7 +32,7 @@ function Relatorios() {
             </tr>
           </thead>
           <tbody>
-            {/* --- Item Expandido --- */}
+            {/* Item expandido */}
             <React.Fragment>
               <tr className="report-item-row">
                 <td className="col-data">09/06/2025</td>
@@ -39,7 +41,7 @@ function Relatorios() {
                 <td className="col-acoes">
                   <div className="report-actions">
                     <i className="fa-solid fa-eye action-icon"></i>
-                    
+                    <button className="edit-btn">Editar</button>
                     <i className="fa-solid fa-file-pdf action-icon"></i>
                   </div>
                 </td>
@@ -48,41 +50,42 @@ function Relatorios() {
                 <td colSpan="4">
                   <div className="report-details">
                     <strong>Anotações:</strong>
-                    <p>Recebo, em frasco contendo formalina, quatro fragmentos irregulares de tecido de aspecto mucoso, coloração branco-acinzentada e consistência firme. Não se observam áreas evidentes de necrose ou hemorragia. Todos os fragmentos são incluídos inteiros para processamento histológico.</p>
+                    <p>
+                      Recebo, em frasco contendo formalina, quatro fragmentos irregulares de tecido de aspecto mucoso,
+                      coloração branco-acinzentada e consistência firme. Não se observam áreas evidentes de necrose ou
+                      hemorragia. Todos os fragmentos são incluídos inteiros para processamento histológico.
+                    </p>
                   </div>
                 </td>
               </tr>
             </React.Fragment>
 
-            {/* --- Itens Simples --- */}
+            {/* Outros itens */}
             <tr className="report-item-row">
-              <td className="col-data">31/05/2025</td>
-              <td className="col-paciente">Caio A. dos Santos</td>
-              <td className="col-analise">Peça Cirúrgica</td>
-              <td className="col-acoes">
+              <td>31/05/2025</td>
+              <td>Caio A. dos Santos</td>
+              <td>Peça Cirúrgica</td>
+              <td>
                 <div className="report-actions">
                   <i className="fa-solid fa-eye action-icon"></i>
-                  <i className="fa-solid fa-pencil action-icon"></i>
+                  <button className="edit-btn">Editar</button>
                   <i className="fa-solid fa-file-pdf action-icon"></i>
                 </div>
               </td>
             </tr>
 
             <tr className="report-item-row">
-              <td className="col-data">01/05/2025</td>
-              <td className="col-paciente">Vinicius R. Cont</td>
-              <td className="col-analise">Imuno-histoquímica</td>
-              <td className="col-acoes">
-                 <div className="report-actions">
-                    <i className="fa-solid fa-eye action-icon"></i>
-                    <i className="fa-solid fa-pencil action-icon"></i>
-                    <i className="fa-solid fa-file-pdf action-icon"></i>
+              <td>01/05/2025</td>
+              <td>Vinicius R. Cont</td>
+              <td>Imuno-histoquímica</td>
+              <td>
+                <div className="report-actions">
+                  <i className="fa-solid fa-eye action-icon"></i>
+                  <button className="edit-btn">Editar</button>
+                  <i className="fa-solid fa-file-pdf action-icon"></i>
                 </div>
               </td>
             </tr>
-            
-            {/* Adicione mais linhas <tr> conforme necessário */}
-
           </tbody>
         </table>
       </div>

@@ -31,9 +31,17 @@ h1 {
 .filters {
   display: flex;
   align-items: center;
-  gap: 16px; /* 1rem */
-  margin-bottom: 32px; /* 2rem */
+  
+  gap: 16px; 
+  margin-bottom: 32px; 
 }
+
+.spacer {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+}
+
 
 .filters span {
   font-weight: 500;
@@ -41,11 +49,43 @@ h1 {
 }
 
 .filters select {
-  padding: 8px 16px; /* 0.5rem 1rem */
+  padding: 10px 40px 10px 12px;
   border-radius: 8px;
-  border: 1px solid var(--color-light-gray);
-  background-color: var(--color-white);
+  border: 1px solid var(--border-color);
+  background-color: var(--card-background);
+  color: var(--text-dark);
   font-size: 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  background-size: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filters select:hover {
+  border-color: var(--primary-blue);
+}
+
+.filters select:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+.edit-btn {
+  background-color: var(--primary-blue);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.edit-btn:hover {
+  background-color: #3a7ac8;
+  transform: scale(1.02);
 }
 
 /* --- Estilos da Tabela --- */
@@ -125,7 +165,8 @@ h1 {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 24px; /* 1.5rem */
+  gap: 24px;
+  margin-right: 30px; /* 1.5rem */
 }
 
 .report-actions i {
