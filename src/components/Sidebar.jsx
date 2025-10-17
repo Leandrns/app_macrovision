@@ -1,12 +1,13 @@
+
 import React from 'react';
 import '../styles/Sidebar.css';
+import LogoBranca from "../assets/logo_macrovision_b.svg"
 
 function Sidebar({ activeScreen, navigateTo }) {
   return (
     <nav className="sidebar">
       <div className="sidebar-header">
-        <img src="" alt="Macrovision Logo" className="sidebar-logo" />
-        <span>MACRO VISION</span>
+        <img src={LogoBranca} alt="Macrovision Logo" className="sidebar-logo" />
       </div>
       <ul className="sidebar-menu">
         <li className={activeScreen === 'dashboard' ? 'active' : ''} onClick={() => navigateTo('dashboard')}>
@@ -19,8 +20,8 @@ function Sidebar({ activeScreen, navigateTo }) {
           <a href="#"><i className="fa-solid fa-file-lines"></i> Relatórios</a>
         </li>
       </ul>
-      <div className="sidebar-footer">
-        <a href="#"><i className="fa-solid fa-circle-user"></i> Usuário</a>
+      <div className="sidebar-footer" onClick={() => navigateTo('UserLogin')}>
+        <a href='#'> <i className="fa-solid fa-circle-user" ></i> Usuário</a>
       </div>
     </nav>
   );

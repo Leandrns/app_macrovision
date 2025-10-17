@@ -1,15 +1,15 @@
 import React from 'react';
 import '../styles/UserLogin.css';
+import LogoAzul from '../assets/logo_macrovision_p.svg'
 
 function UserLogin({ onBack, onLogin }) {
   return (
     <div className="user-login-container">
+      <img src={LogoAzul} alt="Macrovision Logo" className="login-logo" />
       <div className="user-login-box">
         <div className="login-header">
             <button className="back-button" onClick={onBack}><i className="fa-solid fa-arrow-left"></i> Voltar</button>
         </div>
-        <img src="" alt="Macrovision Logo" className="login-logo" />
-        <span className="login-brand-name">MACRO VISION</span>
         
         <h2>Login</h2>
 

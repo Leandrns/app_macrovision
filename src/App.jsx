@@ -23,7 +23,12 @@ function App() {
   // --- FUNÇÕES DE NAVEGAÇÃO ---
   // Navega para uma tela específica do painel principal
   const navigateTo = (screen) => {
-    setCurrentScreen(screen);
+    if (screen === 'UserLogin') {
+      setIsLoggedIn(false);
+      setLoginScreen('user');
+    } else {
+      setCurrentScreen(screen);
+    }
   };
 
   // Simula o processo de login
