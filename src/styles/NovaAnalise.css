@@ -70,18 +70,103 @@
     /* Estilos para a imagem quando for adicionada */
 }
 
+/* --- Estilização da seção de câmera --- */
 .camera-connect {
-    flex: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: var(--card-background, #fff);
+  border: 1px solid var(--border-color, #E0E0E0);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  min-width: 260px;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.camera-connect:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  border-color: var(--primary-blue, #4A90E2);
+}
+
+.camera-connect label {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-dark, #3D405B);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.camera-connect label::before {
+  content: '\f030'; 
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  color: var(--primary-blue, #4A90E2);
+}
+
+
+.camera-connect select {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color, #E0E0E0);
+    background-color: #F9FAFB;
+    color: var(--text-dark, #3D405B);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.camera-connect select:hover {
+  border-color: var(--primary-blue, #4A90E2);
+}
+
+.camera-connect select:focus {
+  outline: none;
+  border-color: var(--primary-blue, #4A90E2);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
 }
 
 .camera-status {
-    color: green;
-    font-size: 0.9rem;
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.camera-status i {
-    margin-right: 0.5rem;
+.camera-status.success {
+  color: #2E8B57;
 }
+
+.camera-status.error {
+  color: #C0392B;
+}
+
+.camera-status::before {
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+}
+
+.camera-status.success::before {
+  content: '\f058';
+}
+
+.camera-status.error::before {
+  content: '\f057'; 
+}
+
+.camera-status {
+  animation: fadeIn 0.3s ease-in;
+}
+
+
+
 
 .voice-command {
     display: flex;
@@ -92,16 +177,36 @@
 }
 
 .dimensions-group {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  gap: 0.6rem;
+  max-height: 3rem;
 }
+
+
 .dimensions-inputs {
-    display: flex;
-    gap: 1rem;
+    border: 1px solid var(--color-light-gray);
+    background-color: var(--color-white);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+  text-align: center;
+  gap: 1rem;
 }
 
 .dimensions-inputs input {
-    max-width: 120px;
+  flex: 1;
+  border: none;
+  background: transparent;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #222;
+  font-weight: 500;
+  padding: 0.3rem 0;
 }
 
 .action-buttons {
