@@ -43,9 +43,9 @@ function NovaAnalise() {
     
     const result = await testCamera(cameraId);
     if (result.success) {
-      setCameraStatus('✓ Câmera conectada com sucesso! Clique em "Fazer análise dimensional"');
+      setCameraStatus('OK: Câmera conectada com sucesso! Clique em "Fazer análise dimensional"');
     } else {
-      setCameraStatus(result.message);
+      setCameraStatus('ERRO: ' + result.message);
     }
   };
 
@@ -71,10 +71,10 @@ function NovaAnalise() {
         length: result.measurements.length,
         height: result.measurements.height
       });
-      setCameraStatus(`✓ Análise concluída! ${result.num_valid_captures} capturas válidas`);
+      setCameraStatus(`OK: Análise concluída! ${result.num_valid_captures} capturas válidas`);
     } else {
       setError(result.message);
-      setCameraStatus('✗ Falha na análise');
+      setCameraStatus('ERRO: Falha na análise');
     }
   };
 
@@ -161,7 +161,7 @@ function NovaAnalise() {
               )}
             </select>
             {cameraStatus && (
-              <p className={`camera-status ${cameraStatus.includes('✓') ? 'success' : cameraStatus.includes('✗') ? 'error' : ''}`}>
+              <p className={`camera-status ${cameraStatus.includes('OK') ? 'success' : cameraStatus.includes('ERRO') ? 'error' : ''}`}>
                 {cameraStatus}
               </p>
             )}
