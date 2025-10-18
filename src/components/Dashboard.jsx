@@ -1,16 +1,16 @@
 import React from 'react';
 import '../styles/Dashboard.css';
 
-function Dashboard() {
+function Dashboard({ navigateTo }) {
   return (
     <main className="dashboard-main">
       <h1>Dashboard</h1>
       <div className="dashboard-cards">
-        <div className="card-action">
+        <div className="card-action" onClick={() => navigateTo('new-analysis')}>
           <i className="fa-solid fa-microscope"></i>
           <span>Nova Análise</span>
         </div>
-        <div className="card-action">
+        <div className="card-action" onClick={() => navigateTo('reports')}>
           <i className="fa-solid fa-magnifying-glass"></i>
           <span>Relatórios</span>
         </div>
