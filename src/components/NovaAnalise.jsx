@@ -57,7 +57,7 @@ function NovaAnalise() {
 
     setIsAnalyzing(true);
     setError(null);
-    setCameraStatus('Analisando... Por favor aguarde');
+    setCameraStatus('Analisando... Por favor aguarde.');
 
     const result = await performAnalysis(selectedCamera);
 
@@ -71,7 +71,7 @@ function NovaAnalise() {
         length: result.measurements.length,
         height: result.measurements.height
       });
-      setCameraStatus(`OK: Análise concluída! ${result.num_valid_captures} capturas válidas`);
+      setCameraStatus(`OK: Análise concluída! ${result.num_valid_captures} capturas válidas.`);
     } else {
       setError(result.message);
       setCameraStatus('ERRO: Falha na análise');
@@ -130,14 +130,32 @@ function NovaAnalise() {
         <div className="image-analysis-container">
           <div className="image-placeholder">
             {analysisResult && analysisResult.images && analysisResult.images[0] ? (
-              <img src={getImageUrl(analysisResult.images[0])} alt="Foto 1 Análise" />
+              <img 
+                src={getImageUrl(analysisResult.images[0])} 
+                alt="Foto 1 Análise" 
+                onError={(e) => {
+                  console.error('Erro ao carregar imagem 1:', analysisResult.images[0]);
+                  console.error('URL tentada:', getImageUrl(analysisResult.images[0]));
+                  e.target.style.display = 'none';
+                }}
+                onLoad={() => console.log('Imagem 1 carregada com sucesso')}
+              />
             ) : (
               <span>Foto1</span>
             )}
           </div>
           <div className="image-placeholder">
             {analysisResult && analysisResult.images && analysisResult.images[1] ? (
-              <img src={getImageUrl(analysisResult.images[1])} alt="Foto 2 Análise" />
+              <img 
+                src={getImageUrl(analysisResult.images[1])} 
+                alt="Foto 2 Análise"
+                onError={(e) => {
+                  console.error('Erro ao carregar imagem 2:', analysisResult.images[1]);
+                  console.error('URL tentada:', getImageUrl(analysisResult.images[1]));
+                  e.target.style.display = 'none';
+                }}
+                onLoad={() => console.log('Imagem 2 carregada com sucesso')}
+              />
             ) : (
               <span>Foto2</span>
             )}
@@ -201,12 +219,6 @@ function NovaAnalise() {
                 value={dimensions.length ? `Comprimento: ${dimensions.length}` : 'Comprimento: -'} 
                 readOnly 
               />
-              {/* <input 
-                type="text" 
-                placeholder="Altura" 
-                value={dimensions.height ? `Altura: ${dimensions.height}` : 'Altura: -'} 
-                readOnly 
-              /> */}
             </div>
           </div>
         </div>
@@ -216,7 +228,7 @@ function NovaAnalise() {
         <button 
           className="btn-dimensional" 
           onClick={handleAnalyze}
-          // disabled={isAnalyzing || !selectedCamera}
+          disabled={isAnalyzing || !selectedCamera}
         >
           {isAnalyzing ? 'Analisando...' : 'Fazer análise dimensional'}
         </button>

@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
-import os
 from datetime import datetime
+from s3_service import S3Service
 
 class MeasurementService:
     def __init__(self, camera_id, reference_width_cm=10.0, num_captures=8):
@@ -17,20 +17,18 @@ class MeasurementService:
         self.reference_width_cm = reference_width_cm
         self.num_captures = num_captures
         self.measurements = []
+        self.s3_service = S3Service()
         
-    def perform_analysis(self, save_dir='static/images'):
+    def perform_analysis(self, save_to_s3=True):
         """
         Executa a análise dimensional completa.
         
         Args:
-            save_dir: Diretório onde salvar as imagens capturadas
+            save_to_s3: Se True, salva imagens no S3; se False, retorna apenas medições
             
         Returns:
             dict com resultados da análise
         """
-        # Cria diretório se não existir
-        os.makedirs(save_dir, exist_ok=True)
-        
         # Abre câmera
         cap = cv2.VideoCapture(self.camera_id)
         if not cap.isOpened():
@@ -42,7 +40,7 @@ class MeasurementService:
             }
         
         measurements = []
-        saved_images = []
+        image_urls = []
         
         try:
             for i in range(self.num_captures):
@@ -56,13 +54,27 @@ class MeasurementService:
                 if result['success']:
                     measurements.append(result['dimensions'])
                     
-                    # Salva imagem com anotações (primeira e última captura)
-                    if i == 0 or i == self.num_captures - 1:
+                    # Salva imagem no S3 (primeira e última captura)
+                    if save_to_s3 and (i == 0 or i == self.num_captures - 1):
                         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
                         filename = f'analysis_{timestamp}_{i}.jpg'
-                        filepath = os.path.join(save_dir, filename)
-                        cv2.imwrite(filepath, result['annotated_image'])
-                        saved_images.append(filename)
+                        
+                        # Converte imagem para bytes
+                        _, buffer = cv2.imencode('.jpg', result['annotated_image'])
+                        image_data = buffer.tobytes()
+                        
+                        # Upload para S3
+                        upload_result = self.s3_service.upload_image_data(
+                            image_data,
+                            filename
+                        )
+                        
+                        if upload_result['success']:
+                            image_urls.append({
+                                'url': upload_result['url'],
+                                's3_key': upload_result['s3_key'],
+                                'filename': filename
+                            })
         
         finally:
             cap.release()
@@ -80,7 +92,7 @@ class MeasurementService:
                     'length': round(float(avg_length), 2),
                     'height': round(float(avg_length), 2)
                 },
-                'images': saved_images,
+                'images': image_urls,
                 'num_valid_captures': len(measurements)
             }
         else:
