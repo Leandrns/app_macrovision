@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/NovaAnalise.css';
-import { getCameras, testCamera, performAnalysis } from '../services/api';
+import { getCameras, testCamera, performAnalysis, getImageUrl } from '../services/api';
 
 function NovaAnalise() {
   // Estados
@@ -130,14 +130,14 @@ function NovaAnalise() {
         <div className="image-analysis-container">
           <div className="image-placeholder">
             {analysisResult && analysisResult.images && analysisResult.images[0] ? (
-              <img src={`backend/static/images/${analysisResult.images[0]}`} alt="Foto 1 Análise" />
+              <img src={getImageUrl(analysisResult.images[0])} alt="Foto 1 Análise" />
             ) : (
               <span>Foto1</span>
             )}
           </div>
           <div className="image-placeholder">
             {analysisResult && analysisResult.images && analysisResult.images[1] ? (
-              <img src={`backend/static/images/${analysisResult.images[1]}`} alt="Foto 2 Análise" />
+              <img src={getImageUrl(analysisResult.images[1])} alt="Foto 2 Análise" />
             ) : (
               <span>Foto2</span>
             )}
