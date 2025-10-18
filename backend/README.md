@@ -169,16 +169,6 @@ Remove todas as imagens salvas no servidor.
 }
 ```
 
-## Testes
-
-Execute o script de testes para verificar se tudo está funcionando:
-
-```bash
-python test_backend.py
-```
-
-**Certifique-se de que o servidor está rodando antes de executar os testes!**
-
 ## Configurações
 
 ### Alterar largura de referência padrão
