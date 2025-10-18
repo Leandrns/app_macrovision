@@ -45,7 +45,7 @@ function NovaAnalise() {
     if (result.success) {
       setCameraStatus('✓ Câmera conectada com sucesso! Clique em "Fazer análise dimensional"');
     } else {
-      setCameraStatus('✗ ' + result.message);
+      setCameraStatus(result.message);
     }
   };
 
@@ -166,7 +166,7 @@ function NovaAnalise() {
               </p>
             )}
             {error && (
-              <p className="camera-status error">✗ {error}</p>
+              <p className="camera-status error">{error}</p>
             )}
           </div>
         </div>
