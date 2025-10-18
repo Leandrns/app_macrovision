@@ -70,15 +70,15 @@ class MeasurementService:
         # Calcula médias
         if measurements:
             avg_width = np.mean([m['width'] for m in measurements])
-            avg_height = np.mean([m['height'] for m in measurements])
+            avg_length = np.mean([m['length'] for m in measurements])
             
             return {
                 'success': True,
                 'message': f'Análise concluída com {len(measurements)} medições válidas',
                 'measurements': {
                     'width': round(float(avg_width), 2),
-                    'height': round(float(avg_height), 2),
-                    'length': round(float(avg_height), 2)  # Altura como comprimento
+                    'length': round(float(avg_length), 2),
+                    'height': round(float(avg_length), 2)
                 },
                 'images': saved_images,
                 'num_valid_captures': len(measurements)
@@ -179,7 +179,7 @@ class MeasurementService:
         obj = objetos_medidos[0]
         x_obj, y_obj, w_obj, h_obj = cv2.boundingRect(obj)
         largura_objeto_cm = w_obj / pixels_por_cm
-        altura_objeto_cm = h_obj / pixels_por_cm
+        comprimento_objeto_cm = h_obj / pixels_por_cm
         
         cv2.rectangle(
             img_resultado,
@@ -189,7 +189,7 @@ class MeasurementService:
         )
         cv2.putText(
             img_resultado,
-            f"{largura_objeto_cm:.2f}x{altura_objeto_cm:.2f} cm",
+            f"{largura_objeto_cm:.2f}x{comprimento_objeto_cm:.2f} cm",
             (x_obj, y_obj - 10),
             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2
         )
@@ -198,7 +198,7 @@ class MeasurementService:
             'success': True,
             'dimensions': {
                 'width': largura_objeto_cm,
-                'height': altura_objeto_cm
+                'length': comprimento_objeto_cm
             },
             'annotated_image': img_resultado
         }

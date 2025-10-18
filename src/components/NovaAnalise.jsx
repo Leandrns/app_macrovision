@@ -11,7 +11,7 @@ function NovaAnalise() {
   const [analysisResult, setAnalysisResult] = useState(null);
   const [error, setError] = useState(null);
 
-  // Dimensões (preenchidas após análise)
+  // Dimensões (preenchidas após análise dimensional)
   const [dimensions, setDimensions] = useState({
     width: '',
     length: '',
@@ -129,15 +129,15 @@ function NovaAnalise() {
         <h3>Análise dimensional</h3>
         <div className="image-analysis-container">
           <div className="image-placeholder">
-            {analysisResult && analysisResult.image_urls && analysisResult.image_urls[0] ? (
-              <img src={analysisResult.image_urls[0]} alt="Foto 1 Análise" />
+            {analysisResult && analysisResult.images && analysisResult.images[0] ? (
+              <img src={`backend/static/images/${analysisResult.images[0]}`} alt="Foto 1 Análise" />
             ) : (
               <span>Foto1</span>
             )}
           </div>
           <div className="image-placeholder">
-            {analysisResult && analysisResult.image_urls && analysisResult.image_urls[1] ? (
-              <img src={analysisResult.image_urls[1]} alt="Foto 2 Análise" />
+            {analysisResult && analysisResult.images && analysisResult.images[1] ? (
+              <img src={`backend/static/images/${analysisResult.images[1]}`} alt="Foto 2 Análise" />
             ) : (
               <span>Foto2</span>
             )}
@@ -201,12 +201,12 @@ function NovaAnalise() {
                 value={dimensions.length ? `Comprimento: ${dimensions.length}` : 'Comprimento: -'} 
                 readOnly 
               />
-              <input 
+              {/* <input 
                 type="text" 
                 placeholder="Altura" 
                 value={dimensions.height ? `Altura: ${dimensions.height}` : 'Altura: -'} 
                 readOnly 
-              />
+              /> */}
             </div>
           </div>
         </div>
@@ -216,7 +216,7 @@ function NovaAnalise() {
         <button 
           className="btn-dimensional" 
           onClick={handleAnalyze}
-          disabled={isAnalyzing || !selectedCamera}
+          // disabled={isAnalyzing || !selectedCamera}
         >
           {isAnalyzing ? 'Analisando...' : 'Fazer análise dimensional'}
         </button>

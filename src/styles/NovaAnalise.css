@@ -67,7 +67,8 @@
 }
 
 .image-placeholder img {
-    /* Estilos para a imagem quando for adicionada */
+    width: 100%;
+    border-radius: 8px;
 }
 
 /* --- Estilização da seção de câmera --- */
