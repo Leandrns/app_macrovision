@@ -17,6 +17,11 @@ backend/
 
 ## Instalação Rápida
 
+### 0. Entrar no diretório (caso não esteja)
+```bash
+cd backend
+```
+
 ### 1. Criar ambiente virtual
 ```bash
 python -m venv venv
