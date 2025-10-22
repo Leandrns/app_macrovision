@@ -56,8 +56,8 @@
 }
 
 .image-placeholder {
-    width: 200px;
-    height: 150px;
+    width: 400px;
+    min-height: 150px;
     background-color: var(--color-light-gray);
     border-radius: 8px;
     display: flex;

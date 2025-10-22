@@ -144,22 +144,6 @@ function NovaAnalise() {
               <span>Foto1</span>
             )}
           </div>
-          <div className="image-placeholder">
-            {analysisResult && analysisResult.images && analysisResult.images[1] ? (
-              <img 
-                src={getImageUrl(analysisResult.images[1])} 
-                alt="Foto 2 Análise"
-                onError={(e) => {
-                  console.error('Erro ao carregar imagem 2:', analysisResult.images[1]);
-                  console.error('URL tentada:', getImageUrl(analysisResult.images[1]));
-                  e.target.style.display = 'none';
-                }}
-                onLoad={() => console.log('Imagem 2 carregada com sucesso')}
-              />
-            ) : (
-              <span>Foto2</span>
-            )}
-          </div>
           <div className="camera-connect">
             <label htmlFor="camera-select">Conectar câmera</label>
             <select 
