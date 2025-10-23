@@ -1,4 +1,4 @@
-/* --- Global Styles & Variables (mesmos de antes) --- */
+/* --- Global Styles & Variables --- */
 :root {
   --background-light: #F4F7FC;
   --card-background: #FFFFFF;
@@ -22,16 +22,23 @@ body {
   margin: auto;
 }
 
-h1 {
+.reports-main h1 {
   font-size: 28px;
   margin-bottom: 20px;
 }
 
-/* --- Filtros (mesmo de antes) --- */
+.error {
+  color: #e74c3c;
+  padding: 1rem;
+  background-color: #fadbd8;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+/* --- Filtros --- */
 .filters {
   display: flex;
   align-items: center;
-  
   gap: 16px; 
   margin-bottom: 32px; 
 }
@@ -40,32 +47,16 @@ h1 {
   display: flex;
   width: 80%;
   justify-content: space-between;
+  gap: 1rem;
 }
-
 
 .filters span {
   font-weight: 500;
   color: #333;
 }
 
-.filters select {
-  padding: 10px 40px 10px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  background-color: var(--card-background);
-  color: var(--text-dark);
-  font-size: 14px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  background-size: 10px;
-  cursor: pointer;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.filters select:hover {
-  border-color: var(--primary-blue);
-}
-
-.filters select:focus {
+.filters select:focus,
+.filters input:focus {
   outline: none;
   border-color: var(--primary-blue);
   box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
@@ -90,17 +81,10 @@ h1 {
 
 /* --- Estilos da Tabela --- */
 .report-table-container {
-    background-color: var(--card-background);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    overflow: hidden; /* Importante para o border-radius funcionar */
-}
-
-.report-table-container {
-  background-color: var(--color-white);
+  background-color: var(--card-background);
   border-radius: 12px;
   box-shadow: var(--shadow);
-  overflow: hidden; /* Garante que o conteúdo respeite o border-radius */
+  overflow: hidden;
 }
 
 .report-table {
@@ -110,7 +94,7 @@ h1 {
 
 .report-table th,
 .report-table td {
-  padding: 24px 32px; /* 1.5rem 2rem */
+  padding: 24px 32px;
   text-align: left;
   vertical-align: middle;
 }
@@ -120,14 +104,19 @@ h1 {
   font-weight: 600;
   color: #8D99AE;
   text-transform: uppercase;
-  border-bottom: 1px solid var(--color-light-gray);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .report-item-row {
-  border-bottom: 1px solid var(--color-light-gray);
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.2s ease;
+  cursor: pointer;
 }
 
-/* Remove a borda da última linha de dados */
+.report-item-row:hover {
+  background-color: #f5f5f5;
+}
+
 .report-table tbody tr.report-item-row:last-of-type {
   border-bottom: none;
 }
@@ -135,25 +124,6 @@ h1 {
 .report-table td {
   font-weight: 500;
 }
-
-
-.report-item-row {
-    border-bottom: 1px solid var(--border-color);
-    transition: background-color 0.2s ease;
-}
-
-.report-item-row:hover {
-    background-color: #f5f5f5;
-}
-
-/* Remove a borda da última linha */
-.report-table tbody tr:last-child {
-  border-bottom: none;
-}
-.report-item-row:last-child {
-  border-bottom: none;
-}
-
 
 /* --- Colunas e Ações --- */
 .col-data { width: 15%; }
@@ -166,54 +136,131 @@ h1 {
   justify-content: flex-end;
   align-items: center;
   gap: 24px;
-  margin-right: 30px; /* 1.5rem */
+  margin-right: 30px;
 }
 
 .report-actions i {
-  font-size: 19px; /* 1.2rem */
-  color: var(--color-primary);
+  font-size: 19px;
+  color: var(--primary-blue);
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .report-actions i:hover {
   transform: scale(1.1);
+  color: #3a7ac8;
 }
 
 .action-icon {
-  font-size: 18px; color: var(--text-light); cursor: pointer; transition: color 0.2s ease;
-}
-.action-icon:hover { color: var(--primary-blue); }
-.edit-btn {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  border: none;
-  border-radius: 6px;
-  padding: 8px 24px; /* 0.5rem 1.5rem */
-  font-weight: 600;
+  font-size: 18px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
-.edit-btn:hover {
-  background-color: #3a7ac8;
+.action-icon:hover {
+  color: var(--primary-blue);
 }
+
 /* --- Linha de Detalhes Expandida --- */
 .details-row td {
-  padding: 0;
+  padding: 0 !important;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .report-details {
-  background-color: #F8F9FA; /* Cor de fundo sutil para destaque */
-  padding: 24px 32px; /* 1.5rem 2rem */
+  background-color: #F8F9FA;
+  padding: 24px 32px;
+  animation: slideDown 0.3s ease;
 }
 
-.report-details strong {
-    display: block;
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.report-details p {
-  margin-top: 8px; /* 0.5rem */
+.detail-section {
+  margin-bottom: 16px;
   line-height: 1.6;
+}
+
+.detail-section strong {
+  display: block;
+  color: var(--primary-blue);
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.detail-section p {
+  margin: 8px 0 0 0;
   color: #555;
+  line-height: 1.7;
+}
+
+.analysis-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.analysis-images img {
+  width: 200px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.analysis-images img:hover {
+  transform: scale(1.05);
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .spacer {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .report-table th,
+  .report-table td {
+    padding: 16px;
+    font-size: 14px;
+  }
+  
+  .report-actions {
+    gap: 12px;
+    margin-right: 0;
+  }
+  
+  .analysis-images img {
+    width: 150px;
+  }
+}
+
+.filters input[type="date"],
+.filters input[type="text"] {
+  padding: 10px 40px 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-background);
+  color: var(--text-dark);
+  font-size: 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  flex: 1;
 }
