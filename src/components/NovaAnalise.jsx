@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/NovaAnalise.css';
 import { getCameras, testCamera, performAnalysis, getImageUrl } from '../services/api';
 
-function NovaAnalise() {
+function NovaAnalise({ navigateTo }) {
   // Estados
   const [cameras, setCameras] = useState([]);
   const [selectedCamera, setSelectedCamera] = useState(null);
@@ -10,6 +10,13 @@ function NovaAnalise() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [error, setError] = useState(null);
+  const [date, setDate] = useState("");
+
+  const agora = new Date();
+  const horaAtual = agora.getHours().toString().padStart(2, '0');
+  const minutosAtuais = agora.getMinutes().toString().padStart(2, '0');
+  const horaFormatada = `${horaAtual}:${minutosAtuais}`;
+  const [horaSelecionada, setHoraSelecionada] = useState(horaFormatada);
 
   // Dimensões (preenchidas após análise dimensional)
   const [dimensions, setDimensions] = useState({
@@ -21,6 +28,7 @@ function NovaAnalise() {
   // Busca câmeras disponíveis ao montar o componente
   useEffect(() => {
     loadCameras();
+    setDate(getTodayDate());
   }, []);
 
   const loadCameras = async () => {
@@ -78,13 +86,21 @@ function NovaAnalise() {
     }
   };
 
+  const getTodayDate = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  };
+
   return (
     <main className="new-analysis-main">
       <div className="form-section">
         <div className="form-row">
           <div className="form-group half-width">
             <label htmlFor="doctor-name">Nome do médico*</label>
-            <input type="text" id="doctor-name" />
+            <input type="text" id="doctor-name" placeholder='Digite o nome do médico'/>
           </div>
           <div className="form-group half-width">
             <label htmlFor="doctor-crm">CRM*</label>
@@ -94,7 +110,7 @@ function NovaAnalise() {
         <div className="form-row">
           <div className="form-group half-width">
             <label htmlFor="patient-name">Nome do paciente*</label>
-            <input type="text" id="patient-name" />
+            <input type="text" id="patient-name" placeholder='Digite o nome do paciente' />
           </div>
           <div className="form-group half-width">
             <label htmlFor="patient-cpf">CPF*</label>
@@ -108,11 +124,12 @@ function NovaAnalise() {
         <div className="form-row">
           <div className="form-group">
             <label htmlFor="analysis-date">Data da análise</label>
-            <input type="date" id="analysis-date" />
+            <input type="date" id="analysis-date" value={date} onChange={(e) => setDate(e.target.value)} />
           </div>
           <div className="form-group">
             <label htmlFor="analysis-time">Hora da análise</label>
-            <input type="time" id="analysis-time" defaultValue="00:00" />
+            <input type="time" id="analysis-time" value={horaSelecionada}
+                    onChange={(e) => setHoraSelecionada(e.target.value)} />
           </div>
           <div className="form-group">
             <label htmlFor="analyzed-part">Peça analisada*</label>
@@ -182,11 +199,11 @@ function NovaAnalise() {
               rows="4" 
               defaultValue="Órgão apresenta morfologia preservada, com cavidades cardíacas bem definidas e proporcionalmente desenvolvidas."
             />
-            <div className="voice-command">
+            {/* <div className="voice-command">
               <span>Modo Comando de voz</span>
               <i className="fa-solid fa-microphone"></i>
               <i className="fa-solid fa-headset"></i>
-            </div>
+            </div> */}
           </div>
           <div className="dimensions-group">
             <label>Dimensões (cm)</label>
@@ -209,6 +226,7 @@ function NovaAnalise() {
       </div>
       
       <div className="action-buttons">
+        <button className='btn-cancel' onClick={() => navigateTo('dashboard')}>Cancelar análise</button>
         <button 
           className="btn-dimensional" 
           onClick={handleAnalyze}
