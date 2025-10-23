@@ -226,15 +226,16 @@ function NovaAnalise({ navigateTo }) {
       </div>
       
       <div className="action-buttons">
-        <button className='btn-cancel' onClick={() => navigateTo('dashboard')}>Cancelar análise</button>
+        <button className='btn-cancel' onClick={() => navigateTo('dashboard')}><i class="fa-solid fa-xmark"></i> Cancelar análise</button>
         <button 
           className="btn-dimensional" 
           onClick={handleAnalyze}
           disabled={isAnalyzing || !selectedCamera}
         >
+          <i class="fa-solid fa-ruler"></i> 
           {isAnalyzing ? 'Analisando...' : 'Fazer análise dimensional'}
         </button>
-        <button className="btn-submit">Enviar análise</button>
+        <button className="btn-submit"><i class="fa-solid fa-paper-plane"></i> Enviar análise</button>
       </div>
     </main>
   );

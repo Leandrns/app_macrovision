@@ -225,6 +225,9 @@
     font-weight: 600;
     cursor: pointer;
     transition: all .2s;
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 .action-buttons button:hover {
