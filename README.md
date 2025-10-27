@@ -1,4 +1,4 @@
-<img src="./src/assets/logo_macrovision_p.svg" width="400px">
+<img src="./src/assets/logo_macrovision_p.png" width="400px">
 
 # MacroVision App
 
