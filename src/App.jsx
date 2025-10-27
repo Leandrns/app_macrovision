@@ -54,7 +54,7 @@ function App() {
       case 'dashboard':
         return <Dashboard navigateTo={navigateTo} />;
       case 'new-analysis':
-        return <NewAnalysis />;
+        return <NewAnalysis navigateTo={navigateTo} />;
       case 'reports':
         return <Reports />;
       default:

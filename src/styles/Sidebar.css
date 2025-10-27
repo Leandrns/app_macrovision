@@ -33,6 +33,11 @@
 
 .sidebar-menu li {
   padding-left: 1.5rem;
+  transition: background-color 0.2s;
+}
+
+.sidebar-menu li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .sidebar-menu li a {

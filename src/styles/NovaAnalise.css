@@ -224,6 +224,20 @@
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    transition: all .2s;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.action-buttons button:hover {
+  background-color: #cccccc;
+  color: #222;
+}
+
+.btn-cancel {
+  background-color: #C0392B;
+  color: var(--color-white);
 }
 
 .btn-dimensional {

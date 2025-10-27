@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/NovaAnalise.css';
 import { getCameras, testCamera, performAnalysis, getImageUrl } from '../services/api';
+import { analysisService } from '../services/supabaseClient';
 
-function NovaAnalise() {
+function NovaAnalise({ navigateTo }) {
   // Estados
   const [cameras, setCameras] = useState([]);
   const [selectedCamera, setSelectedCamera] = useState(null);
@@ -10,6 +11,26 @@ function NovaAnalise() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [error, setError] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
+
+  const agora = new Date();
+  const horaAtual = agora.getHours().toString().padStart(2, '0');
+  const minutosAtuais = agora.getMinutes().toString().padStart(2, '0');
+  const horaFormatada = `${horaAtual}:${minutosAtuais}`;
+  const [horaSelecionada, setHoraSelecionada] = useState(horaFormatada);
+
+  // Dados do formulário
+  const [formData, setFormData] = useState({
+    doctorName: '',
+    doctorCrm: '',
+    patientName: '',
+    patientCpf: '',
+    analysisDate: new Date().toISOString().split('T')[0],
+    analysisTime: '00:00',
+    analyzedPart: 'Coração',
+    analysisType: 'Biópsia',
+    annotations: 'Órgão apresenta morfologia preservada, com cavidades cardíacas bem definidas e proporcionalmente desenvolvidas.'
+  });
 
   // Dimensões (preenchidas após análise dimensional)
   const [dimensions, setDimensions] = useState({
@@ -28,12 +49,20 @@ function NovaAnalise() {
     if (result.success) {
       setCameras(result.cameras);
       if (result.cameras.length > 0) {
-        // Seleciona primeira câmera por padrão
         setSelectedCamera(result.cameras[0].id);
       }
     } else {
       setError('Não foi possível carregar as câmeras');
     }
+  };
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    const fieldName = id.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+    setFormData(prev => ({
+      ...prev,
+      [fieldName]: value
+    }));
   };
 
   const handleCameraChange = async (e) => {
@@ -65,7 +94,6 @@ function NovaAnalise() {
 
     if (result.success) {
       setAnalysisResult(result);
-      // Preenche os campos de dimensões
       setDimensions({
         width: result.measurements.width,
         length: result.measurements.length,
@@ -78,27 +106,114 @@ function NovaAnalise() {
     }
   };
 
+  const handleSubmit = async () => {
+    // Validação básica
+    if (!formData.doctorName || !formData.doctorCrm || !formData.patientName || !formData.patientCpf) {
+      setError('Por favor, preencha todos os campos obrigatórios');
+      return;
+    }
+
+    if (!analysisResult) {
+      setError('Por favor, realize a análise dimensional antes de enviar');
+      return;
+    }
+
+    setIsSaving(true);
+    setError(null);
+
+    // Extrair URLs das imagens
+    const imageUrls = analysisResult.images.map(img => 
+      typeof img === 'object' ? img.url : img
+    );
+
+    // Preparar dados para salvar
+    const analysisData = {
+      doctor_name: formData.doctorName,
+      doctor_crm: formData.doctorCrm,
+      patient_name: formData.patientName,
+      patient_cpf: formData.patientCpf,
+      analysis_date: formData.analysisDate,
+      analysis_time: formData.analysisTime,
+      analyzed_part: formData.analyzedPart,
+      analysis_type: formData.analysisType,
+      annotations: formData.annotations,
+      width: dimensions.width,
+      length: dimensions.length,
+      height: dimensions.height,
+      image_urls: imageUrls
+    };
+
+    const result = await analysisService.createAnalysis(analysisData);
+
+    setIsSaving(false);
+
+    if (result.success) {
+      alert('Análise salva com sucesso!');
+      // Limpar formulário
+      setFormData({
+        doctorName: '',
+        doctorCrm: '',
+        patientName: '',
+        patientCpf: '',
+        analysisDate: new Date().toISOString().split('T')[0],
+        analysisTime: '00:00',
+        analyzedPart: 'Coração',
+        analysisType: 'Biópsia',
+        annotations: 'Órgão apresenta morfologia preservada, com cavidades cardíacas bem definidas e proporcionalmente desenvolvidas.'
+      });
+      setDimensions({ width: '', length: '', height: '' });
+      setAnalysisResult(null);
+      setCameraStatus(null);
+    } else {
+      setError('Erro ao salvar análise: ' + result.error);
+    }
+  };
+
   return (
     <main className="new-analysis-main">
       <div className="form-section">
         <div className="form-row">
           <div className="form-group half-width">
             <label htmlFor="doctor-name">Nome do médico*</label>
-            <input type="text" id="doctor-name" />
+            <input 
+              type="text" 
+              id="doctor-name" 
+              value={formData.doctorName}
+              onChange={handleInputChange}
+              placeholder='Digite o nome do médico'
+            />
           </div>
           <div className="form-group half-width">
             <label htmlFor="doctor-crm">CRM*</label>
-            <input type="text" id="doctor-crm" placeholder="123456" />
+            <input 
+              type="text" 
+              id="doctor-crm" 
+              placeholder="123456" 
+              value={formData.doctorCrm}
+              onChange={handleInputChange}
+            />
           </div>
         </div>
         <div className="form-row">
           <div className="form-group half-width">
             <label htmlFor="patient-name">Nome do paciente*</label>
-            <input type="text" id="patient-name" />
+            <input 
+              type="text" 
+              id="patient-name" 
+              value={formData.patientName}
+              onChange={handleInputChange}
+              placeholder='Digite o nome do paciente'
+            />
           </div>
           <div className="form-group half-width">
             <label htmlFor="patient-cpf">CPF*</label>
-            <input type="text" id="patient-cpf" placeholder="12345678910" />
+            <input 
+              type="text" 
+              id="patient-cpf" 
+              placeholder="12345678910" 
+              value={formData.patientCpf}
+              onChange={handleInputChange}
+            />
           </div>
         </div>
       </div>
@@ -108,18 +223,35 @@ function NovaAnalise() {
         <div className="form-row">
           <div className="form-group">
             <label htmlFor="analysis-date">Data da análise</label>
-            <input type="date" id="analysis-date" />
+            <input 
+              type="date" 
+              id="analysis-date" 
+              value={formData.analysisDate}
+              onChange={handleInputChange}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="analysis-time">Hora da análise</label>
-            <input type="time" id="analysis-time" defaultValue="00:00" />
+            <input 
+              type="time" 
+              id="analysis-time" 
+              onChange={handleInputChange}
+              // value={formData.analysisTime}
+              value={horaSelecionada}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="analyzed-part">Peça analisada*</label>
-            <select id="analyzed-part">
+            <select 
+              id="analyzed-part" 
+              value={formData.analyzedPart}
+              onChange={handleInputChange}
+            >
               <option>Coração</option>
               <option>Pulmão</option>
               <option>Pâncreas</option>
+              <option>Estômago</option>
+              <option>Fígado</option>
             </select>
           </div>
         </div>
@@ -135,10 +267,8 @@ function NovaAnalise() {
                 alt="Foto 1 Análise" 
                 onError={(e) => {
                   console.error('Erro ao carregar imagem 1:', analysisResult.images[0]);
-                  console.error('URL tentada:', getImageUrl(analysisResult.images[0]));
                   e.target.style.display = 'none';
                 }}
-                onLoad={() => console.log('Imagem 1 carregada com sucesso')}
               />
             ) : (
               <span>Foto1</span>
@@ -150,6 +280,7 @@ function NovaAnalise() {
               id="camera-select" 
               value={selectedCamera || ''} 
               onChange={handleCameraChange}
+              onClick={handleCameraChange}
               disabled={isAnalyzing}
             >
               {cameras.length === 0 ? (
@@ -179,8 +310,10 @@ function NovaAnalise() {
           <div className="form-group full-width">
             <label>Anotações</label>
             <textarea 
+              id="annotations"
               rows="4" 
-              defaultValue="Órgão apresenta morfologia preservada, com cavidades cardíacas bem definidas e proporcionalmente desenvolvidas."
+              value={formData.annotations}
+              onChange={handleInputChange}
             />
             <div className="voice-command">
               <span>Modo Comando de voz</span>
@@ -209,14 +342,20 @@ function NovaAnalise() {
       </div>
       
       <div className="action-buttons">
+        <button className='btn-cancel' onClick={() => navigateTo('dashboard')}>Cancelar análise</button>
         <button 
           className="btn-dimensional" 
           onClick={handleAnalyze}
-          disabled={isAnalyzing || !selectedCamera}
         >
           {isAnalyzing ? 'Analisando...' : 'Fazer análise dimensional'}
         </button>
-        <button className="btn-submit">Enviar análise</button>
+        <button 
+          className="btn-submit" 
+          onClick={handleSubmit}
+          disabled={isSaving}
+        >
+          {isSaving ? 'Salvando...' : 'Enviar análise'}
+        </button>
       </div>
     </main>
   );
