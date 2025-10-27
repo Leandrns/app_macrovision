@@ -91,8 +91,19 @@ function Relatorios() {
   };
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
+    // Corrige o problema do fuso horário
+    const date = new Date(dateString + 'T00:00:00');
     return date.toLocaleDateString('pt-BR');
+  };
+
+  const formatTime = (timeString) => {
+    // Se o horário vier no formato HH:MM:SS, retorna apenas HH:MM
+    if (timeString && timeString.includes(':')) {
+      const parts = timeString.split(':');
+      return `${parts[0]}:${parts[1]}`;
+    }
+    // Se vier como 00:00:00 ou vazio, retorna apenas o horário
+    return timeString || '00:00';
   };
 
   const exportToPDF = (analysis) => {
@@ -210,13 +221,16 @@ function Relatorios() {
                             <strong>Paciente:</strong> {analysis.patient_name} (CPF: {analysis.patient_cpf})
                           </div>
                           <div className="detail-section">
-                            <strong>Data e Hora:</strong> {formatDate(analysis.analysis_date)} às {analysis.analysis_time}
+                            <strong>Data e Hora:</strong> {formatDate(analysis.analysis_date)} às {formatTime(analysis.analysis_time)}
                           </div>
                           <div className="detail-section">
                             <strong>Peça Analisada:</strong> {analysis.analyzed_part}
                           </div>
                           <div className="detail-section">
-                            <strong>Dimensões:</strong> Largura: {analysis.width}cm | Comprimento: {analysis.length}cm | Altura: {analysis.height}cm
+                            <strong>Tipo de Análise:</strong> {analysis.analysis_type}
+                          </div>
+                          <div className="detail-section">
+                            <strong>Dimensões:</strong> Largura: {analysis.width}cm | Comprimento: {analysis.length}cm
                           </div>
                           <div className="detail-section">
                             <strong>Anotações:</strong>
