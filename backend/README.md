@@ -44,7 +44,20 @@ venv\Scripts\activate.bat
 pip install -r requirements.txt
 ```
 
-### 4. Iniciar servidor
+### 4. Configurar credenciais AWS
+Crie um arquivo .env na pasta backend e insira as seguintes variáveis:
+```bash
+# AWS S3 Configuration
+AWS_ACCESS_KEY_ID=sua_access_key_aqui
+AWS_SECRET_ACCESS_KEY=sua_secret_key_aqui
+AWS_REGION=us-east-1
+AWS_BUCKET_NAME=nome-do-seu-bucket
+
+# Flask Configuration
+FLASK_ENV=development
+```
+
+### 5. Iniciar servidor
 ```bash
 python app.py
 ```
