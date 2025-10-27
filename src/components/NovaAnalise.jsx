@@ -333,11 +333,11 @@ function NovaAnalise({ navigateTo }) {
               value={formData.annotations}
               onChange={handleInputChange}
             />
-            <div className="voice-command">
+            {/* <div className="voice-command">
               <span>Modo Comando de voz</span>
               <i className="fa-solid fa-microphone"></i>
               <i className="fa-solid fa-headset"></i>
-            </div>
+            </div> */}
           </div>
           <div className="dimensions-group">
             <label>Dimensões (cm) <span>média obtida a partir das capturas</span></label>
