@@ -168,6 +168,7 @@ function NovaAnalise({ navigateTo }) {
       setDimensions({ width: '', length: '', height: '' });
       setAnalysisResult(null);
       setCameraStatus(null);
+      navigateTo('reports');
     } else {
       setError('Erro ao salvar análise: ' + result.error);
     }
@@ -368,7 +369,9 @@ function NovaAnalise({ navigateTo }) {
         </button>
         <button 
           className="btn-submit" 
-          onClick={handleSubmit}
+          onClick={() => {
+            handleSubmit();
+          }}
           disabled={isSaving}
         >
           {isSaving ? 'Salvando...' : 'Enviar análise'}
