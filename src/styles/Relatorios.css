@@ -252,7 +252,8 @@ body {
 }
 
 .filters input[type="date"],
-.filters input[type="text"] {
+.filters input[type="text"],
+.filters select {
   padding: 10px 40px 10px 12px;
   border-radius: 8px;
   border: 1px solid var(--border-color);
