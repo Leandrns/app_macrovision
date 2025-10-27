@@ -26,7 +26,7 @@ function NovaAnalise({ navigateTo }) {
     patientName: '',
     patientCpf: '',
     analysisDate: new Date().toISOString().split('T')[0],
-    analysisTime: '00:00',
+    analysisTime: horaFormatada,
     analyzedPart: 'Coração',
     analysisType: 'Biópsia',
     annotations: 'Órgão apresenta morfologia preservada, com cavidades cardíacas bem definidas e proporcionalmente desenvolvidas.'
@@ -133,7 +133,7 @@ function NovaAnalise({ navigateTo }) {
       patient_name: formData.patientName,
       patient_cpf: formData.patientCpf,
       analysis_date: formData.analysisDate,
-      analysis_time: formData.analysisTime,
+      analysis_time: horaSelecionada,
       analyzed_part: formData.analyzedPart,
       analysis_type: formData.analysisType,
       annotations: formData.annotations,
@@ -150,17 +150,21 @@ function NovaAnalise({ navigateTo }) {
     if (result.success) {
       alert('Análise salva com sucesso!');
       // Limpar formulário
+      const novaHora = new Date();
+      const novaHoraFormatada = `${novaHora.getHours().toString().padStart(2, '0')}:${novaHora.getMinutes().toString().padStart(2, '0')}`;
+      
       setFormData({
         doctorName: '',
         doctorCrm: '',
         patientName: '',
         patientCpf: '',
         analysisDate: new Date().toISOString().split('T')[0],
-        analysisTime: '00:00',
+        analysisTime: novaHoraFormatada,
         analyzedPart: 'Coração',
         analysisType: 'Biópsia',
         annotations: 'Órgão apresenta morfologia preservada, com cavidades cardíacas bem definidas e proporcionalmente desenvolvidas.'
       });
+      setHoraSelecionada(novaHoraFormatada);
       setDimensions({ width: '', length: '', height: '' });
       setAnalysisResult(null);
       setCameraStatus(null);
@@ -235,8 +239,7 @@ function NovaAnalise({ navigateTo }) {
             <input 
               type="time" 
               id="analysis-time" 
-              onChange={handleInputChange}
-              // value={formData.analysisTime}
+              onChange={(e) => setHoraSelecionada(e.target.value)}
               value={horaSelecionada}
             />
           </div>
@@ -252,6 +255,20 @@ function NovaAnalise({ navigateTo }) {
               <option>Pâncreas</option>
               <option>Estômago</option>
               <option>Fígado</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="analysis-type">Tipo de análise*</label>
+            <select 
+              id="analysis-type" 
+              value={formData.analysisType}
+              onChange={handleInputChange}
+            >
+              <option>Biópsia</option>
+              <option>Peça Cirúrgica</option>
+              <option>Imuno-histoquímica</option>
+              <option>Citologia</option>
+              <option>Histopatologia</option>
             </select>
           </div>
         </div>

@@ -41,6 +41,7 @@ class MeasurementService:
         
         measurements = []
         image_urls = []
+        best_result = None  # Armazena o melhor resultado para salvar a imagem
         
         try:
             for i in range(self.num_captures):
@@ -54,30 +55,34 @@ class MeasurementService:
                 if result['success']:
                     measurements.append(result['dimensions'])
                     
-                    # Salva imagem no S3 (primeira e última captura)
-                    if save_to_s3 and (i == 0 or i == self.num_captures - 1):
-                        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-                        filename = f'analysis_{timestamp}_{i}.jpg'
-                        
-                        # Converte imagem para bytes
-                        _, buffer = cv2.imencode('.jpg', result['annotated_image'])
-                        image_data = buffer.tobytes()
-                        
-                        # Upload para S3
-                        upload_result = self.s3_service.upload_image_data(
-                            image_data,
-                            filename
-                        )
-                        
-                        if upload_result['success']:
-                            image_urls.append({
-                                'url': upload_result['url'],
-                                's3_key': upload_result['s3_key'],
-                                'filename': filename
-                            })
+                    # Guarda o primeiro resultado válido para salvar a imagem
+                    if best_result is None:
+                        best_result = result
         
         finally:
             cap.release()
+        
+        # Salva apenas UMA imagem no S3 se houver medições válidas
+        if save_to_s3 and best_result is not None:
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            filename = f'analysis_{timestamp}.jpg'
+            
+            # Converte imagem para bytes
+            _, buffer = cv2.imencode('.jpg', best_result['annotated_image'])
+            image_data = buffer.tobytes()
+            
+            # Upload para S3
+            upload_result = self.s3_service.upload_image_data(
+                image_data,
+                filename
+            )
+            
+            if upload_result['success']:
+                image_urls.append({
+                    'url': upload_result['url'],
+                    's3_key': upload_result['s3_key'],
+                    'filename': filename
+                })
         
         # Calcula médias
         if measurements:
