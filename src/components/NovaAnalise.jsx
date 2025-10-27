@@ -280,6 +280,7 @@ function NovaAnalise({ navigateTo }) {
               id="camera-select" 
               value={selectedCamera || ''} 
               onChange={handleCameraChange}
+              onClick={handleCameraChange}
               disabled={isAnalyzing}
             >
               {cameras.length === 0 ? (
@@ -345,7 +346,6 @@ function NovaAnalise({ navigateTo }) {
         <button 
           className="btn-dimensional" 
           onClick={handleAnalyze}
-          disabled={isAnalyzing || !selectedCamera}
         >
           {isAnalyzing ? 'Analisando...' : 'Fazer análise dimensional'}
         </button>
