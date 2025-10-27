@@ -186,11 +186,14 @@
   max-height: 3rem;
 }
 
+.dimensions-group span {
+  font-weight: 600;
+  font-size: 12px;
+  color: #4A90E2;
+}
+
 
 .dimensions-inputs {
-    border: 1px solid var(--color-light-gray);
-    background-color: var(--color-white);
-  border-radius: 10px;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -201,13 +204,14 @@
 
 .dimensions-inputs input {
   flex: 1;
-  border: none;
-  background: transparent;
+  border-radius: 6px;
+  border: 1px solid var(--color-light-gray);
+  background-color: var(--color-white);
   text-align: center;
   font-size: 0.9rem;
   color: #222;
   font-weight: 500;
-  padding: 0.3rem 0;
+  padding: 1rem;
 }
 
 .action-buttons {

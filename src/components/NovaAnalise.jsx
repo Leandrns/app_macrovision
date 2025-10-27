@@ -340,18 +340,18 @@ function NovaAnalise({ navigateTo }) {
             </div>
           </div>
           <div className="dimensions-group">
-            <label>Dimensões (cm)</label>
+            <label>Dimensões (cm) <span>média obtida a partir das capturas</span></label>
             <div className="dimensions-inputs">
               <input 
                 type="text" 
                 placeholder="Largura" 
-                value={dimensions.width ? `Largura: ${dimensions.width}` : 'Largura: -'} 
+                value={dimensions.width ? `Largura: ${dimensions.width} cm` : 'Largura: -'} 
                 readOnly 
               />
               <input 
                 type="text" 
                 placeholder="Comprimento" 
-                value={dimensions.length ? `Comprimento: ${dimensions.length}` : 'Comprimento: -'} 
+                value={dimensions.length ? `Comprimento: ${dimensions.length} cm` : 'Comprimento: -'} 
                 readOnly 
               />
             </div>
