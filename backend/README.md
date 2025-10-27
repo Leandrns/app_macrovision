@@ -10,9 +10,7 @@ backend/
 ├── camera_service.py       # Serviço de detecção de câmeras
 ├── measurement_service.py  # Serviço de medição dimensional
 ├── requirements.txt        # Dependências Python
-├── start.bat              # Script de inicialização (Windows)
-└── static/
-    └── images/            # Imagens capturadas (gerado automaticamente)
+└── s3_service.py           # Serviço de conexão com o S3 da AWS
 ```
 
 ## Instalação Rápida
@@ -44,8 +42,15 @@ venv\Scripts\activate.bat
 pip install -r requirements.txt
 ```
 
-### 4. Configurar credenciais AWS
-Crie um arquivo .env na pasta backend e insira as seguintes variáveis:
+### 4. Configurar variáveis de ambiente do Supabase
+Crie um arquivo `.env.local` na raiz do projeto e insira as seguintes variáveis:
+```bash
+VITE_SUPABASE_URL=sua_url_do_supabase
+VITE_SUPABASE_ANON_KEY=sua_anon_key_do_supabase
+```
+
+### 5. Configurar credenciais AWS
+Crie um arquivo `.env` na pasta `backend/` e insira as seguintes variáveis:
 ```bash
 # AWS S3 Configuration
 AWS_ACCESS_KEY_ID=sua_access_key_aqui
@@ -57,7 +62,7 @@ AWS_BUCKET_NAME=nome-do-seu-bucket
 FLASK_ENV=development
 ```
 
-### 5. Iniciar servidor
+### 6. Iniciar servidor
 ```bash
 python app.py
 ```
