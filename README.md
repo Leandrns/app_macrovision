@@ -2,7 +2,7 @@
 
 # MacroVision App
 
-O **MacroVision** é uma aplicação web desenvolvida para realizar análises dimensionais de peças utilizando visão computacional. A aplicação consiste em um frontend construído com React e um backend em Python usando Flask. Ela permite conectar câmeras, capturar imagens, realizar medições automáticas, salvar os resultados e gerenciar relatórios.
+O **MacroVision** é uma aplicação web desenvolvida para realizar análises dimensionais de peças anatômicas utilizando visão computacional, destinado à médicos patologistas. A aplicação consiste em um frontend construído com React e um backend em Python usando Flask. Ela permite conectar câmeras, capturar imagens, realizar medições automáticas, salvar os resultados e gerenciar relatórios.
 
 ## Equipe de Desenvolvimento
 
